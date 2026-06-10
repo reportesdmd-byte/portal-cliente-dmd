@@ -7,6 +7,6 @@ const MV4_CONFIG = {
   UMBRAL_DESC_VOLUMEN: 1000,
   PCT_DESC_VOLUMEN: 4,
   // Número del asesor con código de país, sin signos. Ej: "526441234567"
-  WHATSAPP_ASESOR: "",
+  WHATSAPP_ASESOR: "526531650860",
   VERSION: "2.0.0-dev"
 };
