@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DMD Distribuidora — Portal Cliente</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=Public+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- ════════ LOGIN ════════ -->
+<div id="vista-login" class="login-wrap">
+  <div class="login-logo">
+    <div class="grande">DMD<span>+</span></div>
+    <p>Distribuidora · Portal de Pedidos</p>
+  </div>
+  <div class="login-card">
+    <h2>Iniciar sesión</h2>
+    <div id="login-msg"></div>
+    <div class="field">
+      <label for="login-usr">Usuario</label>
+      <input id="login-usr" type="text" placeholder="Tu usuario" autocomplete="username"
+             autocapitalize="none" autocorrect="off" spellcheck="false">
+    </div>
+    <div class="field">
+      <label for="login-pwd">Contraseña</label>
+      <input id="login-pwd" type="password" placeholder="Tu contraseña" autocomplete="current-password">
+    </div>
+    <button class="btn btn-bosque btn-block" id="login-btn">Entrar</button>
+    <p class="login-pie">¿Olvidaste tu contraseña? Contacta a tu asesor DMD.</p>
+  </div>
+</div>
+
+<!-- ════════ APP ════════ -->
+<div id="vista-app" hidden>
+
+  <div class="cinta">
+    <span id="cinta-amb" class="amb" hidden>AMBIENTE DE PRUEBA</span>
+    <span><b id="cinta-nombre"></b> · <span id="cinta-id"></span></span>
+    <span class="dot">•</span>
+    <span>Tu lista: <b id="cinta-lista"></b></span>
+    <span class="dot">•</span>
+    <span class="pill" id="cinta-entrega">Pide antes de las 6:00 pm</span>
+  </div>
+
+  <header class="top">
+    <div class="top-inner">
+      <div class="brand" data-go="home">
+        <span class="logo">DMD<span>+</span></span>
+        <small>DISTRIBUIDORA</small>
+      </div>
+      <div class="buscador">
+        <input id="buscar" placeholder="Busca por producto, código o tu código propio…" autocomplete="off">
+        <span class="lupa">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.6" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.8-3.8"/></svg>
+        </span>
+      </div>
+      <div class="top-acts">
+        <button class="top-act" data-go="pedidos">
+          <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2M9 5a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2M9 5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2M9 12h6M9 16h4"/></svg>
+          Mis pedidos
+        </button>
+        <button class="top-act" data-go="quick">
+          <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M13 2 4.5 12.5H11L9.5 22 19 10h-7l1-8z"/></svg>
+          Pedido rápido
+        </button>
+        <button class="top-act" data-go="carrito">
+          <span class="badge" id="badge-d" hidden>0</span>
+          <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13 5.4 5M7 13l-2.3 2.3c-.6.6-.2 1.7.7 1.7H17m0 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-8 2a2 2 0 1 1-4 0 2 2 0 0 1 4 0z"/></svg>
+          Carrito
+        </button>
+        <button class="top-act" id="btn-salir">
+          <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M17 16l4-4m0 0-4-4m4 4H7m6 4v1a3 3 0 0 1-3 3H6a3 3 0 0 1-3-3V7a3 3 0 0 1 3-3h4a3 3 0 0 1 3 3v1"/></svg>
+          Salir
+        </button>
+      </div>
+    </div>
+    <nav class="catnav">
+      <div class="catnav-inner" id="catnav">
+        <button class="cat on" data-go="home">Inicio</button>
+        <button class="cat" data-grupo="">Catálogo</button>
+        <button class="cat" data-grupo="Patente">Patente</button>
+        <button class="cat" data-grupo="Genérico">Genéricos</button>
+        <button class="cat destacado-oro" data-grupo="__ofertas">🏷 Ofertas del mes</button>
+        <button class="cat destacado-rayo" data-go="quick">⚡ Pedido rápido</button>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <!-- HOME -->
+    <section class="screen on" id="s-home">
+      <div class="hero">
+        <div class="hero-main">
+          <span class="hero-tag" id="hero-tag">TU DISTRIBUIDORA DE CONFIANZA</span>
+          <h1>Surte tu farmacia <em>hoy</em>, recíbelo <em>mañana</em>.</h1>
+          <p id="hero-sub">Precios de tu lista asignada con tu margen visible en cada producto.</p>
+          <button class="btn btn-oro" data-grupo="">Ver catálogo completo</button>
+        </div>
+        <div class="hero-side">
+          <button class="acceso" id="acc-repedir">
+            <span class="ic ic-verde">
+              <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 2.6-6.3L3 8"/><path d="M3 3v5h5"/></svg>
+            </span>
+            <span><b>Re-pedir lo de siempre</b><span id="acc-repedir-sub">Tu último pedido en un toque</span></span>
+          </button>
+          <button class="acceso" data-go="quick">
+            <span class="ic ic-oro">
+              <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M13 2 4.5 12.5H11L9.5 22 19 10h-7l1-8z"/></svg>
+            </span>
+            <span><b>Pedido rápido</b><span>Pega tu lista código + cantidad y listo</span></span>
+          </button>
+          <button class="acceso" id="acc-listas">
+            <span class="ic ic-rojo">
+              <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+            </span>
+            <span><b>Mis listas guardadas</b><span>Tu pedido semanal, quincenal…</span></span>
+          </button>
+        </div>
+      </div>
+
+      <div class="banners" id="banners" hidden></div>
+      <div class="ofertas-strip" id="ofertas-strip"></div>
+
+      <h2 class="sec">Ofertas del mes <small>precio de oferta ya aplicado sobre tu lista</small></h2>
+      <div class="carril" id="carril-ofertas"><div class="cargando"><div class="spinner"></div>Cargando catálogo…</div></div>
+
+      <h2 class="sec">Catálogo destacado <small id="destacado-sub"></small></h2>
+      <div class="carril" id="carril-top"></div>
+    </section>
+
+    <!-- CATÁLOGO -->
+    <section class="screen" id="s-catalogo">
+      <h2 class="sec"><span id="cat-titulo">Catálogo</span> <small id="cat-conteo"></small></h2>
+      <div class="cat-layout">
+        <aside class="filtros">
+          <h4>Disponibilidad</h4>
+          <label><input type="checkbox" id="f-stock"> Solo con existencia</label>
+          <label><input type="checkbox" id="f-ofertas"> Solo ofertas</label>
+          <hr>
+          <h4>Grupo</h4>
+          <div id="f-grupos"></div>
+        </aside>
+        <div>
+          <div class="grid-cat" id="grid-cat"></div>
+          <div style="text-align:center;margin-top:18px">
+            <button class="btn btn-linea" id="btn-mas" hidden>Mostrar más</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FICHA -->
+    <section class="screen" id="s-ficha"></section>
+
+    <!-- QUICK ORDER -->
+    <section class="screen" id="s-quick">
+      <h2 class="sec">Pedido rápido <small>para cuando ya sabes exactamente qué necesitas</small></h2>
+      <div class="qo-grid">
+        <div class="panel">
+          <h3>Pega tu lista</h3>
+          <p class="desc">Un producto por renglón: <b>código,cantidad</b> — acepta también tus códigos propios. Igual que la lista que mandas por WhatsApp.</p>
+          <textarea class="qo-textarea" id="qo-text" placeholder="7501318652538,12&#10;7501065056191,6&#10;7501125161802,24"></textarea>
+          <div style="display:flex;gap:10px;margin-top:12px">
+            <button class="btn btn-bosque" id="qo-validar">Validar lista</button>
+            <button class="btn btn-linea" id="qo-limpiar">Limpiar</button>
+          </div>
+          <div class="qo-result" id="qo-result"></div>
+          <div id="qo-add" hidden style="margin-top:12px">
+            <button class="btn btn-oro btn-block" id="qo-agregar">Agregar productos válidos al carrito</button>
+          </div>
+        </div>
+        <div class="panel">
+          <h3>💡 Cómo funciona</h3>
+          <p class="desc">1. Copia tu lista desde WhatsApp, Excel o donde la tengas.<br><br>
+          2. Cada renglón lleva el código (de barras o el tuyo propio) y la cantidad, separados por coma, punto y coma o tabulador.<br><br>
+          3. Te validamos existencia y precio al instante — los renglones con problema se marcan en rojo y los demás se van al carrito.<br><br>
+          <b>La validación es instantánea: usa el catálogo ya cargado en tu sesión.</b></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CARRITO -->
+    <section class="screen" id="s-carrito"></section>
+
+    <!-- PEDIDOS -->
+    <section class="screen" id="s-pedidos">
+      <h2 class="sec">Mis pedidos <small id="ped-sub"></small></h2>
+      <div id="lista-pedidos"><div class="cargando"><div class="spinner"></div>Cargando…</div></div>
+    </section>
+
+    <!-- ÉXITO -->
+    <section class="screen" id="s-exito"></section>
+  </main>
+
+  <footer class="pie" id="pie"></footer>
+
+  <button class="wa" id="btn-wa" title="Hablar con mi asesor">
+    <svg fill="currentColor" viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.2 14.2c-.2.6-1.2 1.2-1.7 1.2-.4.1-1 .1-1.6-.1a14 14 0 0 1-1.5-.5 11.6 11.6 0 0 1-4.4-3.9c-.3-.5-.8-1.3-.8-2.2s.5-1.4.7-1.6c.2-.2.4-.3.6-.3h.4c.2 0 .4 0 .6.4l.8 2c.1.2.1.4 0 .6l-.4.6c-.1.2-.2.3-.1.5.4.7 1 1.4 1.7 1.9.6.4 1 .6 1.3.7.2.1.4.1.5-.1l.7-.9c.2-.2.4-.3.6-.2l1.9.9c.2.1.4.2.4.3.1.1.1.4-.1.7z"/></svg>
+  </button>
+
+  <nav class="bnav">
+    <button class="on" id="bn-home" data-go="home">
+      <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-7h-6v7H4a1 1 0 0 1-1-1V10z"/></svg>
+      Inicio
+    </button>
+    <button id="bn-catalogo" data-grupo="">
+      <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
+      Catálogo
+    </button>
+    <button id="bn-quick" data-go="quick">
+      <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M13 2 4.5 12.5H11L9.5 22 19 10h-7l1-8z"/></svg>
+      Rápido
+    </button>
+    <button id="bn-carrito" data-go="carrito">
+      <span class="badge" id="badge-m" hidden>0</span>
+      <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13 5.4 5M7 13l-2.3 2.3c-.6.6-.2 1.7.7 1.7H17m0 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-8 2a2 2 0 1 1-4 0 2 2 0 0 1 4 0z"/></svg>
+      Carrito
+    </button>
+    <button id="bn-pedidos" data-go="pedidos">
+      <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2M9 5a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2M9 5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2M9 12h6M9 16h4"/></svg>
+      Pedidos
+    </button>
+  </nav>
+</div>
+
+<!-- Modal genérico (detalle de pedido / listas) -->
+<div class="modal-bg" id="modal-bg">
+  <div class="modal">
+    <div class="modal-drag"></div>
+    <div class="modal-head">
+      <h3 id="modal-titulo"></h3>
+      <button class="modal-close" id="modal-cerrar">✕</button>
+    </div>
+    <div id="modal-body"></div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="config.js"></script>
+<script src="api.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
