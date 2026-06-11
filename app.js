@@ -19,6 +19,8 @@ const App = (() => {
   const $ = id => document.getElementById(id);
   const money = n => "$" + (+n || 0).toLocaleString("es-MX", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
   const esc = s => (s == null ? "" : String(s)).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+  // Nombres estilo SAIT ("A S COR|GOT|24ML") → presentación legible para el cliente
+  const fmt = s => esc(s).replace(/\s*\|\s*/g, " · ");
   const norm = s => (s || "").toString().toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "");
   const precioEf = p => (p.oferta && p.precioOferta > 0 && p.precioOferta < p.precio) ? p.precioOferta : p.precio;
   function gana(p) {
@@ -146,7 +148,7 @@ const App = (() => {
       ${p.oferta ? '<span class="oferta-tag">OFERTA</span>' : ""}
       <div class="img" data-ficha="${esc(p.codigo)}">${packHTML(p.forma)}</div>
       <span class="cod">${esc(p.codPropio ? p.codPropio + " · " : "")}${esc(p.codigo)}</span>
-      <span class="nom" data-ficha="${esc(p.codigo)}">${esc(p.descripcion || p.nombre)}</span>
+      <span class="nom" data-ficha="${esc(p.codigo)}">${fmt(p.descripcion || p.nombre)}</span>
       <div class="precios">
         ${tach ? `<span class="pub">${p.oferta ? "Antes" : "Público"} ${money(tach)}</span>` : ""}
         <span class="mio ${p.oferta ? "of" : ""}">${money(ef)}</span>
@@ -176,7 +178,7 @@ const App = (() => {
     $("ofertas-strip").innerHTML = `
       <div class="oferta-card of-1" data-grupo="__ofertas">
         <span class="pct">${ofertas.length}</span><b>Ofertas vigentes</b>
-        <span>${dest ? "Destacada: " + esc((dest.descripcion || dest.nombre).slice(0, 38)) : "Consulta el catálogo"}</span>
+        <span>${dest ? "Destacada: " + fmt((dest.descripcion || dest.nombre).slice(0, 38)) : "Consulta el catálogo"}</span>
       </div>
       <div class="oferta-card of-2" data-go="carrito">
         <span class="pct">${MV4_CONFIG.PCT_DESC_VOLUMEN}%</span><b>Descuento por volumen</b>
@@ -241,7 +243,7 @@ const App = (() => {
       <div class="ficha-img">${packHTML(p.forma)}</div>
       <div class="ficha-info">
         <div class="ruta">Catálogo / <b>${esc(p.grupo || "General")}</b></div>
-        <h1>${esc(p.nombre)}</h1>
+        <h1>${fmt(p.nombre)}</h1>
         <div class="sku">Código ${esc(p.codigo)}${p.codPropio ? " · Tu código: " + esc(p.codPropio) : ""} · Pieza</div>
         <div class="chips">
           ${sin ? '<span class="chip chip-gris">Sin existencia</span>'
@@ -310,7 +312,7 @@ const App = (() => {
       return `<div class="car-item">
         <div class="mini">${packHTML(p.forma)}</div>
         <div class="dat">
-          <b>${esc(p.descripcion || p.nombre)}</b>
+          <b>${fmt(p.descripcion || p.nombre)}</b>
           <span>${money(ef)} c/u${p.oferta ? ' · <span style="color:var(--rojo);font-weight:700">OFERTA</span>' : ""}${pct ? ` · <span style="color:var(--ok)">ganas ${pct}%</span>` : ""}</span><br>
           <button class="quitar" data-delta="${esc(cod)},-${qty}">Quitar</button>
         </div>
@@ -458,7 +460,7 @@ const App = (() => {
       <h4 style="margin:14px 0 6px;font-family:var(--disp);color:var(--bosque)">Artículos (${items.length})</h4>
       ${items.map(i => `
         <div class="detalle-row">
-          <span>${esc(i.nombre)}${i.codPropio ? `<br><small style="color:#A8AC9C">${esc(i.codPropio)}</small>` : ""}</span>
+          <span>${fmt(i.nombre)}${i.codPropio ? `<br><small style="color:#A8AC9C">${esc(i.codPropio)}</small>` : ""}</span>
           <span style="text-align:right">${i.cantidad} × ${money(i.precioUnitario)}<br><b style="color:var(--hoja)">${money(i.subtotal)}</b></span>
         </div>`).join("")}
       <div class="detalle-row" style="font-weight:800;border:none;margin-top:6px">
@@ -533,11 +535,11 @@ const App = (() => {
       const qty = parseInt(qtyS);
       const p = byCod((codS || "").toUpperCase()) || propioMap[norm(codS)];
       if (!p)             return `<div class="qo-row err">✗ <b>${esc(codS || l)}</b> no encontrado — revisa el código</div>`;
-      if (!qty || qty <= 0) return `<div class="qo-row err">✗ <b>${esc(p.descripcion || p.nombre)}</b> cantidad inválida</div>`;
+      if (!qty || qty <= 0) return `<div class="qo-row err">✗ <b>${fmt(p.descripcion || p.nombre)}</b> cantidad inválida</div>`;
       const sin = p.stock !== null ? p.stock < qty : !p.disponible;
-      if (sin) return `<div class="qo-row err">✗ <b>${esc(p.descripcion || p.nombre)}</b> stock insuficiente${p.stock !== null ? ` (hay ${p.stock}, pides ${qty})` : ""}</div>`;
+      if (sin) return `<div class="qo-row err">✗ <b>${fmt(p.descripcion || p.nombre)}</b> stock insuficiente${p.stock !== null ? ` (hay ${p.stock}, pides ${qty})` : ""}</div>`;
       QO_OK.push({ codigo: p.codigo, qty });
-      return `<div class="qo-row">✓ <b>${esc(p.descripcion || p.nombre)}</b> ${qty} pzas · ${money(precioEf(p) * qty)}</div>`;
+      return `<div class="qo-row">✓ <b>${fmt(p.descripcion || p.nombre)}</b> ${qty} pzas · ${money(precioEf(p) * qty)}</div>`;
     }).join("");
     $("qo-add").hidden = !QO_OK.length;
   }
@@ -583,6 +585,11 @@ const App = (() => {
   $("btn-mas").onclick = () => { PAGINA++; renderCatalogo(); };
   $("login-btn").onclick = doLogin;
   $("login-pwd").addEventListener("keydown", e => { if (e.key === "Enter") doLogin(); });
+  $("pwd-ojo").onclick = () => {
+    const inp = $("login-pwd");
+    inp.type = inp.type === "password" ? "text" : "password";
+    inp.focus();
+  };
   $("login-usr").addEventListener("keydown", e => { if (e.key === "Enter") $("login-pwd").focus(); });
   $("btn-salir").onclick = doLogout;
   $("acc-repedir").onclick = () => ULTIMO_PEDIDO ? rePedir(ULTIMO_PEDIDO.noPedido) : irCatalogo({});

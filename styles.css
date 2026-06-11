@@ -95,6 +95,11 @@ h2.sec small{font-family:var(--body);font-size:.8rem;color:var(--tinta-2);font-w
 .field input{width:100%;padding:14px 16px;border:2px solid var(--linea);border-radius:var(--r-md);font-size:1rem;
   outline:none;transition:border-color .2s;background:#FBFAF4}
 .field input:focus{border-color:var(--hoja)}
+.pwd-wrap{position:relative}
+.pwd-wrap input{padding-right:48px}
+.pwd-ojo{position:absolute;right:8px;top:50%;transform:translateY(-50%);background:none;color:#A8AC9C;
+  width:36px;height:36px;display:flex;align-items:center;justify-content:center;border-radius:50%}
+.pwd-ojo:hover{color:var(--hoja);background:var(--hoja-suave)}
 .msg{padding:11px 14px;border-radius:var(--r-sm);font-size:.83rem;font-weight:600;margin-bottom:14px}
 .msg-error{background:var(--rojo-suave);color:var(--rojo)}
 .msg-ok{background:var(--hoja-suave);color:var(--ok)}
