@@ -609,6 +609,10 @@ const App = (() => {
   (function init() {
     const s = Session.get();
     if (s && s.token) { SESION = s; entrar(); }
+    // PWA: service worker (solo https o localhost)
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("sw.js").catch(() => {});
+    }
   })();
 
   return { irLogin, go };

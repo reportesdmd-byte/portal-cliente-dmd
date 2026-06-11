@@ -1,0 +1,17 @@
+{
+  "name": "DMD Distribuidora — Portal de Pedidos",
+  "short_name": "DMD Pedidos",
+  "description": "Portal de pedidos para farmacias de DMD Distribuidora",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#F6F3EA",
+  "theme_color": "#143C08",
+  "lang": "es-MX",
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "icon-512-maskable.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
