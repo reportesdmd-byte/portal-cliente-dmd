@@ -434,7 +434,7 @@ const App = (() => {
         ${timelineHTML(p.estado)}
         <div class="ped-foot">
           <button class="btn btn-linea btn-sm" data-detalle="${esc(p.noPedido)}">Ver detalle</button>
-          ${p.estado !== "CANCELADO" ? `<button class="btn btn-bosque btn-sm" data-repedir="${esc(p.noPedido)}">🔄 Re-pedir igual</button>` : ""}
+          ${p.estado !== "CANCELADO" ? `<button class="btn btn-bosque btn-sm" data-repedir="${esc(p.noPedido)}">🔄 Pedir de nuevo</button>` : ""}
         </div>
       </div>`).join("");
   }
@@ -466,7 +466,7 @@ const App = (() => {
       <div class="detalle-row" style="font-weight:800;border:none;margin-top:6px">
         <span>Total</span><span style="color:var(--bosque);font-size:1.1rem">${money(c.totalImporte)}</span>
       </div>
-      ${c.estado !== "CANCELADO" ? `<button class="btn btn-bosque btn-block" style="margin-top:14px" data-repedir="${esc(noPedido)}">🔄 Re-pedir igual</button>` : ""}`;
+      ${c.estado !== "CANCELADO" ? `<button class="btn btn-bosque btn-block" style="margin-top:14px" data-repedir="${esc(noPedido)}">🔄 Pedir de nuevo</button>` : ""}`;
   }
 
   async function rePedir(noPedido) {
