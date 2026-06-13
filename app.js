@@ -181,8 +181,8 @@ const App = (() => {
         <span>${dest ? "Destacada: " + fmt((dest.descripcion || dest.nombre).slice(0, 38)) : "Consulta el catálogo"}</span>
       </div>
       <div class="oferta-card of-2" data-go="carrito">
-        <span class="pct">${MV4_CONFIG.PCT_DESC_VOLUMEN}%</span><b>Descuento por volumen</b>
-        <span>En pedidos mayores a ${money(MV4_CONFIG.UMBRAL_DESC_VOLUMEN)} — se aplica en facturación</span>
+        <span class="pct">📦</span><b>Descuento por volumen</b>
+        <span>Consúltalo con tu asesor de ventas</span>
       </div>
       <div class="oferta-card of-3" data-go="quick">
         <span class="pct">⚡</span><b>Pedido rápido</b>
@@ -320,8 +320,6 @@ const App = (() => {
         <div class="sub">${money(ef * qty)}</div>
       </div>`;
     }).join("");
-    const aplicaDesc = importe > MV4_CONFIG.UMBRAL_DESC_VOLUMEN;
-    const desc = aplicaDesc ? importe * MV4_CONFIG.PCT_DESC_VOLUMEN / 100 : 0;
     $("s-carrito").innerHTML = `
     <h2 class="sec">Tu carrito <small>${entries.length} productos · se guarda automáticamente</small></h2>
     <div class="car-layout">
@@ -333,9 +331,7 @@ const App = (() => {
         <div class="res-row"><span>Artículos distintos</span><b>${entries.length}</b></div>
         <div class="res-row"><span>Total de piezas</span><b>${piezas}</b></div>
         <div class="res-row"><span>Subtotal</span><b>${money(importe)}</b></div>
-        ${aplicaDesc
-          ? `<div class="res-row desc"><span>Desc. por volumen (${MV4_CONFIG.PCT_DESC_VOLUMEN}%) en facturación</span><b>−${money(desc)}</b></div>`
-          : `<div class="aviso-desc">💡 Te faltan ${money(Math.max(0, MV4_CONFIG.UMBRAL_DESC_VOLUMEN - importe))} para el ${MV4_CONFIG.PCT_DESC_VOLUMEN}% de descuento por volumen</div>`}
+        <div class="aviso-desc">💡 Descuento por volumen: consúltalo con tu asesor de ventas.</div>
         <div class="res-row total"><span>Total del pedido</span><span class="monto">${money(importe)}</span></div>
         <div class="res-meta">
           <label>Fecha de entrega deseada (opcional)</label>
