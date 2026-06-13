@@ -111,8 +111,8 @@ h2.sec small{font-family:var(--body);font-size:.8rem;color:var(--tinta-2);font-w
   color:#fff;padding:38px 36px;position:relative;overflow:hidden;box-shadow:var(--sombra)}
 .hero-main::after{content:"";position:absolute;right:-60px;top:-60px;width:260px;height:260px;border-radius:50%;
   background:radial-gradient(circle,rgba(201,162,39,.4),transparent 65%)}
-.hero-main::before{content:"℞";position:absolute;right:28px;bottom:-34px;font-size:11rem;color:rgba(255,255,255,.06);
-  font-family:var(--disp);font-weight:800}
+.hero-main::before{content:"";position:absolute;right:-18px;bottom:-26px;width:330px;height:230px;
+  background:url(logo_dmd_white.png) right bottom/contain no-repeat;opacity:.10;pointer-events:none}
 .hero-tag{display:inline-block;background:var(--oro);color:var(--bosque-2);font-size:.7rem;font-weight:800;
   letter-spacing:1.6px;padding:5px 12px;border-radius:99px;margin-bottom:16px}
 .hero-main h1{font-family:var(--disp);font-size:2.1rem;font-weight:800;line-height:1.08;max-width:420px}
